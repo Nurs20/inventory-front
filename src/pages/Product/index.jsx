@@ -126,8 +126,9 @@ const ProductPage = () => {
   };
 
   const handleSales = async () => {
+    const date = editedDate + "T00:00:00Z";
     const data = {
-      date: editedDate,
+      date: date,
       sale_amount: Number(editedSalesAmount),
       product: selectedProduct.id,
     };
@@ -139,6 +140,10 @@ const ProductPage = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log(editedDate); // Это будет логировать обновлённое значение editedDate
+  }, [editedDate]);
 
   useEffect(() => {
     getProduct();
