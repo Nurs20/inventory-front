@@ -18,14 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route
-            path="/sale-history"
-            element={
-              <PrivateRoute roles={"manager"}>
-                <SaleHistoryPage />
-              </PrivateRoute>
-            }
-          />
+          <Route path="/sale-history" element={<SaleHistoryPage />} />
           <Route path="/product" element={<ProductPage />} />
           <Route
             path="/forecast"
