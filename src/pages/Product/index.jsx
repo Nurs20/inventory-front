@@ -16,6 +16,7 @@ const ProductPage = () => {
   const [editedSalesAmount, setEditedSalesAmount] = useState(0);
   const [editedDate, setEditedDate] = useState("");
 
+  const [isUser, setIsUser] = useState("");
   const navigate = useNavigate();
 
   const openModal = (product) => {
@@ -146,7 +147,13 @@ const ProductPage = () => {
   }, [editedDate]);
 
   useEffect(() => {
+    const res = localStorage.getItem('auth');
+    if(res) {
+      const newRes = JSON.parse(res);
+      setIsUser(newRes.role)
+    }
     getProduct();
+    
   }, []);
 
   // if (!products.length) return "...Loading";
@@ -156,11 +163,14 @@ const ProductPage = () => {
       <div className="py-8">
         <div className="w-[90%] flex justify-between items-center mb-4">
           <h1 className="text-3xl font-bold">Product List</h1>
-          <button 
-          onClick={() => navigate("/sale")}
-          className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none">
-            Касса
-          </button>
+          {isUser === "cashier" && (
+            <button
+              onClick={() => navigate("/sale")}
+              className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none"
+            >
+              Касса
+            </button>
+          )}
           <button
             className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none"
             onClick={openAddModal}
