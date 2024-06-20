@@ -5,6 +5,9 @@ import ProductPage from "./pages/Product";
 import ForecastPage from "./pages/Forecast";
 import PurchasePage from "./pages/Purchase";
 import Header from "./components/header/Header";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/RegisterPage";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
   return (
@@ -12,10 +15,25 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/sale-history" element={<SaleHistoryPage />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/sale-history"
+            element={
+              <PrivateRoute roles={"manager"}>
+                <SaleHistoryPage />
+              </PrivateRoute>
+            }
+          />
           <Route path="/product" element={<ProductPage />} />
-          <Route path="/forecast" element={<ForecastPage />} />
+          <Route
+            path="/forecast"
+            element={
+              <PrivateRoute roles={"manager"}>
+                <ForecastPage />
+              </PrivateRoute>
+            }
+          />
           <Route path="/purchase" element={<PurchasePage />} />
         </Routes>
       </Router>

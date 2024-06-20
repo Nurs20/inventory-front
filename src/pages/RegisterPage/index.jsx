@@ -1,36 +1,40 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
+import { useNavigate } from "react-router-dom";
 
-function LoginPage() {
+function RegisterPage() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [isError, setError] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLoginChange = (e) => setLogin(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
+    setError(false);
     e.preventDefault();
     // Логика обработки формы
     const data = {
       login: login,
       password: password,
+      role: "cashier",
     };
-    const res = await authService.auth(data);
+    const res = authService.register(data);
     if (res) {
-      navigate("/product");
-      localStorage.setItem('auth', JSON.stringify(res));
+      navigate("/cashier");
+    } else {
+      setError(true);
     }
-    console.log("Login:", login);
-    console.log("Password:", password);
+    console.log("Register Login:", login);
+    console.log("Register Password:", password);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Авторизация</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Регистрация</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2" htmlFor="login">
@@ -62,18 +66,15 @@ function LoginPage() {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition duration-300"
+            className="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition duration-300"
           >
-            Войти
+            Зарегистрироваться
           </button>
         </form>
-        <div className="flex items-center justify-center">
-          <p>У вас нет аккаунта?{""}</p>
-          <Link to={"/register"}>Зарегистрироваться</Link>
-        </div>
+        {isError && (<div>Ошибка регистрации!</div>)}
       </div>
     </div>
   );
 }
 
-export default LoginPage;
+export default RegisterPage;
