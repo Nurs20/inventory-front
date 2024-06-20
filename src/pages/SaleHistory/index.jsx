@@ -17,8 +17,10 @@ function SaleHistoryPage() {
   };
 
   const handleFilterClick = () => {
+    console.log(salesData);
     if (selectedDate) {
-      const formattedDate = selectedDate.toLocaleDateString("en-CA"); // Форматирование даты в виде yyyy-mm-dd
+      const date = new Date(selectedDate);
+      const formattedDate = new Date(date.setUTCHours(0, 0, 0, 0)).toISOString(); // Форматирование даты в виде yyyy-mm-dd
       const filteredData = salesData.filter(
         (item) => item.date === formattedDate
       );

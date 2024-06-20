@@ -69,8 +69,9 @@ const ForecastPage = () => {
   };
 
   const onForecast = async () => {
+    const date = selectedDate + "T00:00:00Z";
     const data = {
-      date: selectedDate,
+      date: date,
       product: selectedProduct,
       sale: selectedSale,
     };
