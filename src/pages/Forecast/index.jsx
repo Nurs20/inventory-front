@@ -17,6 +17,8 @@ const ForecastPage = () => {
   const [product, setProduct] = useState();
   const [sale, setSale] = useState();
 
+  const [selecteFilterdDate, setSelectedFilterDate] = useState("");
+
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("");
   const [selectedSale, setSelectedSale] = useState("");
@@ -49,14 +51,19 @@ const ForecastPage = () => {
   };
 
   const handleDateChange = (event) => {
-    setSelectedDate(event);
+    setSelectedDate(event.target.value);
     console.log("Selected date:", event.target.value); // Выводит выбранную дату в консоль
+  };
+
+  const handleFilterDateChange = (event) => {
+    setSelectedFilterDate(event);
+    console.log("Selected date:", event); // Выводит выбранную дату в консоль
   };
 
   const handleFilterClick = () => {
     console.log(forecastData);
-    if (selectedDate) {
-      const date = new Date(selectedDate);
+    if (selecteFilterdDate) {
+      const date = new Date(selecteFilterdDate);
       const formattedDate = new Date(
         date.setUTCHours(0, 0, 0, 0)
       ).toISOString(); // Форматирование даты в виде yyyy-mm-dd
@@ -119,8 +126,8 @@ const ForecastPage = () => {
           <h1 className="text-3xl font-bold">Forecast Table</h1>
           <div className="flex">
             <DatePicker
-              selected={selectedDate}
-              onChange={handleDateChange}
+              selected={selecteFilterdDate}
+              onChange={handleFilterDateChange}
               className="border-gray-300 bg-white text-gray-900 appearance-none rounded-md px-4 py-2 focus:outline-none"
               placeholderText="Select date"
               dateFormat="yyyy-MM-dd"
@@ -195,7 +202,7 @@ const ForecastPage = () => {
           <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
             <button
               onClick={() => setIsModal(false)}
-              className="relative left-[390px] m-4 text-gray-700"
+              className="relative left-[220px] lg:left-[390px] m-4 text-gray-700"
             >
               &times;
             </button>
