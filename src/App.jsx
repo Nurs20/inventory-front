@@ -8,6 +8,7 @@ import Header from "./components/header/Header";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/RegisterPage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import SalePage from "./pages/Sale";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             }
           />
           <Route path="/purchase" element={<PurchasePage />} />
+          <Route path="/sale" element={<SalePage />} />
         </Routes>
       </Router>
     </>

@@ -149,18 +149,23 @@ const ProductPage = () => {
     getProduct();
   }, []);
 
-  if (!products.length) return "...Loading";
+  // if (!products.length) return "...Loading";
 
   return (
     <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">
-        <div className="flex justify-between items-center mb-4">
+        <div className="w-[90%] flex justify-between items-center mb-4">
           <h1 className="text-3xl font-bold">Product List</h1>
+          <button 
+          onClick={() => navigate("/sale")}
+          className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none">
+            Касса
+          </button>
           <button
             className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none"
             onClick={openAddModal}
           >
-            Add Product
+            Добавить продукт
           </button>
         </div>
         <div className="overflow-x-auto">
@@ -223,7 +228,7 @@ const ProductPage = () => {
                       >
                         Delete
                       </button>
-                      <button
+                      {/* <button
                         className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none ml-2"
                         onClick={(e) => {
                           e.stopPropagation(); // Остановить всплытие, чтобы не вызывалось открытие модального окна
@@ -232,7 +237,7 @@ const ProductPage = () => {
                         }}
                       >
                         Продать
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 ))}
@@ -248,7 +253,9 @@ const ProductPage = () => {
           <div className="absolute inset-0 bg-black opacity-50"></div>
           <div className="relative bg-white rounded-lg p-8">
             <h2 className="text-xl font-bold mb-4">
-              {selectedProduct ? `Edit ${selectedProduct.name}` : "Add Product"}
+              {selectedProduct
+                ? `Edit ${selectedProduct.name}`
+                : "Добавить продукт"}
             </h2>
             <div className="mb-4">
               <label
@@ -321,9 +328,7 @@ const ProductPage = () => {
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="absolute inset-0 bg-black opacity-50"></div>
           <div className="relative bg-white rounded-lg p-8">
-            <h2 className="text-xl font-bold mb-4">
-              {selectedProduct ? `Edit ${selectedProduct.name}` : "Add Product"}
-            </h2>
+            <h2 className="text-xl font-bold mb-4">{"Purchase"}</h2>
             <div className="mb-4">
               <label
                 htmlFor="date"
