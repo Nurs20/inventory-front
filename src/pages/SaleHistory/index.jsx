@@ -57,7 +57,7 @@ function SaleHistoryPage() {
   return (
     <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">
-        <div className="flex justify-between items-center mb-4">
+        <div className="pl-[10px] w-[95%] flex justify-between items-center mb-4">
           <h1 className="text-3xl font-bold">Sales Table</h1>
           <div className="flex">
             <DatePicker

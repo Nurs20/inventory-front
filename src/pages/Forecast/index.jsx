@@ -49,8 +49,30 @@ const ForecastPage = () => {
   };
 
   const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+    setSelectedDate(event);
     console.log("Selected date:", event.target.value); // Выводит выбранную дату в консоль
+  };
+
+  const handleFilterClick = () => {
+    console.log(forecastData);
+    if (selectedDate) {
+      const date = new Date(selectedDate);
+      const formattedDate = new Date(
+        date.setUTCHours(0, 0, 0, 0)
+      ).toISOString(); // Форматирование даты в виде yyyy-mm-dd
+      const filteredData = forecastData.filter(
+        (item) => item.date === formattedDate
+      );
+      setForecastData(filteredData);
+    } else {
+      // Если selectedDate === null, показываем все данные
+      setForecastData([
+        { sale_amount: 150.5, date: "2024-06-01", product: "Product A" },
+        { sale_amount: 200.0, date: "2024-06-02", product: "Product B" },
+        { sale_amount: 350.75, date: "2024-06-03", product: "Product C" },
+        { sale_amount: 120.0, date: "2024-06-04", product: "Product D" },
+      ]);
+    }
   };
 
   const getForecast = async () => {
@@ -101,14 +123,21 @@ const ForecastPage = () => {
               onChange={handleDateChange}
               className="border-gray-300 bg-white text-gray-900 appearance-none rounded-md px-4 py-2 focus:outline-none"
               placeholderText="Select date"
+              dateFormat="yyyy-MM-dd"
             />
+            <button
+              className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+              onClick={handleFilterClick}
+            >
+              Filter
+            </button>
           </div>
           <div>
             <button
               onClick={() => setIsModal(true)}
               className="rounded-[10px] p-2 bg-[#C5E] text-white"
             >
-              Создать прогноз на завтра
+              Создать прогноз
             </button>
           </div>
         </div>
@@ -166,7 +195,7 @@ const ForecastPage = () => {
           <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
             <button
               onClick={() => setIsModal(false)}
-              className="relative left-56 m-4 text-gray-700"
+              className="relative left-[390px] m-4 text-gray-700"
             >
               &times;
             </button>
